@@ -53,7 +53,20 @@ namespace MVCDemoApp.Controllers
             order.OrderDate = DateTime.UtcNow;
             int id = await _orderData.CreateOrder(order);
 
-            return RedirectToAction("Create");
+            return RedirectToAction("Display", new { id });
+        }
+
+        public async Task<IActionResult> Display(int id)
+        {
+            OrderDisplayModel displayOrder = new OrderDisplayModel();
+            displayOrder.Order = await _orderData.GetOrderById(id);
+
+            if(displayOrder.Order != null)
+            {
+                var food = await _foodData.GetFood();
+                displayOrder.ItemPurchased = food.Where(x => x.Id == displayOrder.Order.FoodId).FirstOrDefault()?.Title;
+            }
+            return View(displayOrder);
         }
     }
 }

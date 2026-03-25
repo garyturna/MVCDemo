@@ -1,0 +1,39 @@
+﻿@model OrderDisplayModel
+@{
+    ViewData["Title"] = "Display";
+}
+
+<h1>Display</h1>
+
+@if (Model.Order is null)
+{
+    <h4>The requested order was not found</h4>
+}
+else
+{
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><strong>Order Name</strong></td>
+                <td>@Model.Order.OrderName</td>
+            </tr>
+            <tr>
+                <td><strong>Order Date</strong></td>
+                <td>@Model.Order.OrderDate</td>
+            </tr>
+            <tr>
+                <td><strong>Order Total</strong></td>
+                <td>@Model.Order.Total.ToString("C2")</td>
+            </tr>
+            <tr>
+                <td><strong>Item Ordered</strong></td>
+                <td>@Model.ItemPurchased</td>
+            </tr>
+            <tr>
+                <td><strong>Quantity</strong></td>
+                <td>@Model.Order.Quantity</td>
+            </tr>
+        </tbody>
+    </table>
+}
+
